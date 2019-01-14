@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
-    <menu>
-        <!--<add id="Sam_Price::section" title="Request price" parent="Magento_Customer::customer" module="Sam_Price" sortOrder="60" resource="Sam_Price::Price"/>-->
-        <add id="Sam_Price::price" title="Request price" module="Sam_Price" sortOrder="50" parent="Magento_Customer::customer" action="sam_price/price" resource="Sam_Price::price"/>
-    </menu>
-</config>
