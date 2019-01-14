@@ -68,7 +68,9 @@ define([
 
 								$(".price-response").html(message).modal(response).modal('openModal');
 							} else {
+								$target.modal('closeModal');
 
+								$(".price-response").html(message).modal(response).modal('openModal');
 							}
 						}
 					},
