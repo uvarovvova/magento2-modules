@@ -14,23 +14,6 @@ interface PriceInterface
 	const SKU                   = 'sku';
 	const CREATED_AT            = 'created_at';
 
-
-	/**
-	 * Get ID
-	 *
-	 * @return int|null
-	 */
-	public function getId();
-
-
-	/**
-	 * Set ID
-	 *
-	 * @param $id
-	 * @return PriceInterface
-	 */
-	public function setId($id);
-
 	/**
 	 * Get Name
 	 *
@@ -41,7 +24,7 @@ interface PriceInterface
 	/**
 	 * Set Name
 	 *
-	 * @param $name
+	 * @param string $name
 	 * @return mixed
 	 */
 	public function setName($name);
@@ -56,7 +39,7 @@ interface PriceInterface
 	/**
 	 * Set Email
 	 *
-	 * @param $email
+	 * @param string $email
 	 * @return mixed
 	 */
 	public function setEmail($email);
@@ -71,7 +54,7 @@ interface PriceInterface
 	/**
 	 * Set Sku
 	 *
-	 * @param $sku
+	 * @param string $sku
 	 * @return mixed
 	 */
 	public function setSku($sku);
@@ -86,7 +69,7 @@ interface PriceInterface
 	/**
 	 * Set Sku
 	 *
-	 * @param $comment
+	 * @param string $comment
 	 * @return mixed
 	 */
 	public function setComment($comment);
@@ -108,7 +91,7 @@ interface PriceInterface
 	/**
 	 * Set status
 	 *
-	 * @param $status
+	 * @param int $status
 	 * @return $this
 	 */
 	public function setStatus($status);
