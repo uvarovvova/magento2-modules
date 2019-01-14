@@ -1,0 +1,37 @@
+<?php /** @var \Magento\Catalog\Block\Product\View $block */ ?>
+<p class="price-response"></p>
+
+<div id="modal-content" style="display: none;">
+	<form class="form" id="price-form" method="post" data-mage-init='{"validation": {}}'>
+		<fieldset class="fieldset">
+			<div class="field name required">
+				<label class="label" for="field1"><span>Name</span></label>
+				<div class="control">
+					<input name="name" id="username" type="text" data-validate="{required:true}" title="name"
+					       aria-required="true" class="input-text"/>
+				</div>
+			</div>
+
+			<div class="field name required">
+				<label class="label" for="field1"><span>Email</span></label>
+				<div class="control">
+					<input name="email" id="email" type="email" data-validate="{required:true, 'validate-email':true}"
+					       aria-required="true" title="email" class="input-text"/>
+				</div>
+			</div>
+
+			<div class="field name">
+				<label class="label" for="field1"><span>Comment</span></label>
+				<div class="control">
+					<textarea name="comment" id="comment" type="text" title="comment" class="input-text"></textarea>
+				</div>
+			</div>
+			<input name="sku" type="hidden" value="<?php echo $block->getProduct() ? $block->getProduct()->getSku() : 0; ?>"/>
+
+		</fieldset>
+	</form>
+
+</div>
+<button id="example-modal-button" data-mage-init='{"price-modal-key": {"target": "#modal-content"}}'>
+	Get price
+</button>
