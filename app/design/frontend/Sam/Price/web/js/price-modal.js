@@ -25,7 +25,7 @@ define([
 			focus: '#username'
 		};
 
-		var response = {
+		var optionResponse = {
 
 			buttons: [{
 				text: "Close",
@@ -66,11 +66,11 @@ define([
 								$target.modal('closeModal');
 								$('#price-form')[0].reset();
 
-								$(".price-response").html(message).modal(response).modal('openModal');
+								$(".price-response").html(message).modal(optionResponse).modal('openModal');
 							} else {
 								$target.modal('closeModal');
 
-								$(".price-response").html(message).modal(response).modal('openModal');
+								$(".price-response").html(message).modal(optionResponse).modal('openModal');
 							}
 						}
 					},
