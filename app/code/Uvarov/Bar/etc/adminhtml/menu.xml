@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Uvarov_Bar::section" title="Notifications" parent="Magento_Backend::marketing" module="Uvarov_Bar" sortOrder="50" resource="Uvarov_Bar::notification"/>
+        <add id="Uvarov_Bar::notification" title="Top Information Bar" module="Uvarov_Bar" sortOrder="50" parent="Uvarov_Bar::section" action="uvarov_bar/notification" resource="Uvarov_Bar::notification"/>
+    </menu>
+</config>
