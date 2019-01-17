@@ -9,14 +9,14 @@ define([
 			this._super();
 
 			this.getNotifications();
-			this.loadNotifocations();
+			this.loadNotifications();
 		},
 		getNotifications: function () {
 
 			this.notifications = ko.observable();
 
 		},
-		loadNotifocations: function () {
+		loadNotifications: function () {
 
 			var self = this;
 			var url = urlBuilder.build('notifications/index/notifications');
