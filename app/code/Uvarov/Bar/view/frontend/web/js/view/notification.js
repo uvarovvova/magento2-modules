@@ -7,8 +7,6 @@ define([
 	return Component.extend({
 		initialize: function () {
 			this._super();
-			this.populateUi();
-			this.gameplay();
 
 			this.getNotifications();
 			this.loadNotifocations();
