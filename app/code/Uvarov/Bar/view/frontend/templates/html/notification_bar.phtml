@@ -1,9 +1,22 @@
-<?php
-
-foreach ($block->getNotificationBars() as $notificationBar) :
-	$bgColor = ($notificationBar) ? $notificationBar->getBackgroundColor() : '#006bb4' ?>
-	<div style="background-color: <?php echo $bgColor; ?>">
-		<?php echo $notificationBar->getContent(); ?>
+<div data-bind="scope: 'notificationComponent'">
+	<div data-bind="foreach: notifications ">
+		<div data-bind="style: {'background-color': background_color}">
+			<div data-bind="html: content"></div>
+		</div>
 	</div>
-<?php
-endforeach;
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "notificationComponent": {
+                    "component": "Uvarov_Bar/js/view/notification"
+                }
+            }
+        }
+    }
+}
+
+</script>
