@@ -9,10 +9,10 @@ use Uvarov\Bar\Model\ResourceModel\Notification\Collection as NotificationCollec
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
- * Class Notifications
+ * Class Index
  * @package Uvarov\Bar\Controller\Index
  */
-class Notifications extends Action
+class Index extends Action
 {
 
 	/**
@@ -60,11 +60,14 @@ class Notifications extends Action
 				->addFilter('status', 1)
 				->addFilter('store_id', $this->storeManager->getStore()->getId())
 				->setOrder('priority', 'ASC')
-				->load();
+				->load()
+				->toArray();
 
-			$result = $notificationBars->toArray();
-			$resultJson = $this->resultJsonFactory->create();
-			return $resultJson->setData($result);
+			$resultJson = $this->resultJsonFactory
+				->create()
+				->setData($notificationBars);
+
+			 return $resultJson;
 		}
 
 		return $this->_redirect($this->_redirect->getRefererUrl());

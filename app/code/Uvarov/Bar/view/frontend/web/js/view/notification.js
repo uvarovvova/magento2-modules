@@ -19,19 +19,14 @@ define([
 		loadNotifications: function () {
 
 			var self = this;
-			var url = urlBuilder.build('notifications/index/notifications');
 
-			return storage.post(url, '')
-				.done(
-					function (responce) {
-						self.notifications(responce.items);
-					}
-				).fail(
-					function (responce) {
-						console.log(responce);
-					}
-				)
-
+			return storage.get('/notifications')
+				.done(function (response) {
+					self.notifications(response.items);
+				})
+				.fail(function (response) {
+					console.log(response);
+				})
 		}
 	});
 });
