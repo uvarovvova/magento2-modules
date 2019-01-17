@@ -2,7 +2,7 @@
 <pnage layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="after.body.start">
-            <block name="notification_bar" template="Uvarov_Bar::html/notification_bar.phtml" cacheable="false"/>
+            <block name="notification_bar" template="Uvarov_Bar::html/notification_bar.phtml" />
         </referenceContainer>
     </body>
 </pnage>
