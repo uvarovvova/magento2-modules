@@ -8,7 +8,10 @@ use Magento\Framework\App\Action\Context;
 use Uvarov\Bar\Model\ResourceModel\Notification\Collection as NotificationCollection;
 use Magento\Store\Model\StoreManagerInterface;
 
-
+/**
+ * Class Notifications
+ * @package Uvarov\Bar\Controller\Index
+ */
 class Notifications extends Action
 {
 
