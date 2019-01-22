@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * menu
+ * @copyright Copyright © 30 Demo. All rights reserved.
+ * @author    uvarov.vova@gmail.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Store_Test::pixel" title="Pixel" module="Store_Test" sortOrder="50" parent="Magento_Backend::content" action="store_test/pixel" resource="Store_Test::pixel"/>
+    </menu>
+</config>

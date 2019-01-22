@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * di
+ * @copyright Copyright © 30 Demo. All rights reserved.
+ * @author    uvarov.vova@gmail.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Temporal fix to 2.1 problem with eav attributes: https://github.com/magento/magento2/issues/5339 -->
+    <type name="Magento\Eav\Model\Entity\AttributeCache">
+        <arguments>
+            <argument name="unsupportedTypes" xsi:type="array">
+                <item name="store_pixel" xsi:type="string">store_pixel</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- end temporal fix -->
+    <type name="Store\Test\UI\Component\Listing\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Store\Test\Model\ResourceModel\Pixel\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RefGridFilterPool</argument>
+        </arguments>
+    </type>
+    <virtualType name="RefGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="store_test_pixel_listing_data_source" xsi:type="string">Store\Test\Model\ResourceModel\Pixel\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Store\Test\Model\ResourceModel\Pixel\Grid\Collection">
+        <arguments>
+            <argument name="eventPrefix" xsi:type="string">store_test_pixel_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">store_test_pixel_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Store\Test\Model\ResourceModel\Pixel</argument>
+        </arguments>
+    </type>
+</config>

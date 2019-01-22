@@ -21,13 +21,14 @@ class InstallSchema implements InstallSchemaInterface
 	 */
 	public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
 	{
-		$setup->startSetup();
+		$installer = $setup;
+		$installer->startSetup();
 
 		/**
 		 * Create table 'uvarov_bar_notification'
 		 */
-		$table = $setup->getConnection()->newTable(
-			$setup->getTable('uvarov_bar_notification')
+		$table = $installer->getConnection()->newTable(
+			$installer->getTable('uvarov_bar_notification')
 		)
 			->addColumn(
 				'entity_id',
@@ -65,19 +66,47 @@ class InstallSchema implements InstallSchemaInterface
 				null,
 				['nullable' => true],
 				'Enabled/Disabled')
-			->addIndex(
-				$setup->getIdxName(
-					$setup->getTable('uvarov_bar_notification'),
-					['title'],
-					AdapterInterface::INDEX_TYPE_FULLTEXT),
-				['title'],
-				['type' => AdapterInterface::INDEX_TYPE_FULLTEXT]
-			)->setComment(
+			->setComment(
 				'Notification Table'
 			);
+		$installer->getConnection()->createTable($table);
 
-		$setup->getConnection()->createTable($table);
 
-		$setup->endSetup();
+		$table = $installer->getConnection()->newTable(
+			$installer->getTable('uvarov_bar_notification_store')
+		)->addColumn(
+			'entity_id',
+			Table::TYPE_SMALLINT,
+			null,
+			['nullable' => false, 'primary' => true],
+			'Notification ID'
+		)->addColumn(
+			'store_id',
+			Table::TYPE_SMALLINT,
+			null,
+			['unsigned' => true, 'nullable' => false, 'primary' => true],
+			'Store ID'
+		)->addIndex(
+			$installer->getIdxName('uvarov_bar_notification_store', ['store_id']),
+			['store_id']
+		)->addForeignKey(
+			$installer->getFkName('uvarov_bar_notification_store', 'entity_id', 'uvarov_bar_notification', 'entity_id'),
+			'entity_id',
+			$installer->getTable('uvarov_bar_notification'),
+			'entity_id',
+			Table::ACTION_CASCADE
+		)->addForeignKey(
+			$installer->getFkName('uvarov_bar_notification_store', 'store_id', 'store', 'store_id'),
+			'store_id',
+			$installer->getTable('store'),
+			'store_id',
+			Table::ACTION_CASCADE
+		)->setComment(
+			'Store Linkage Table'
+		);
+		$installer->getConnection()->createTable($table);
+
+
+		$installer->endSetup();
 	}
 }

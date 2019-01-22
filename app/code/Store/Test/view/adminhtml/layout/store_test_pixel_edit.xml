@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * store_test_pixel_edit
+ * @copyright Copyright © 30 Demo. All rights reserved.
+ * @author    uvarov.vova@gmail.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Magento\Backend\Block\Store\Switcher" name="store_test_pixel.store.switcher" template="Magento_Backend::store/switcher.phtml" >
+                <action method="setUseConfirm">
+                    <argument name="params" xsi:type="string">1</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <uiComponent name="store_test_pixel_form"/>
+        </referenceContainer>
+    </body>
+</page>
