@@ -25,6 +25,9 @@ class Index extends Action
 	 */
 	protected $collection;
 
+	/**
+	 * @var StoreManagerInterface
+	 */
 	protected $storeManager;
 
 	/**
