@@ -6,8 +6,8 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
-use Uvarov\Bar\Model\NotificationFactory;
-use Uvarov\Bar\Model\ResourceModel\Notification as ResourceNotification;
+use Uvarov\Bar\Api\Data\NotificationInterfaceFactory;
+use Uvarov\Bar\Api\NotificationRepositoryInterface;
 
 /**
  * Class Edit
@@ -16,43 +16,46 @@ use Uvarov\Bar\Model\ResourceModel\Notification as ResourceNotification;
 class Edit extends Action
 {
 	/**
-	 * Core registry
-	 *
-	 * @var Registry
+	 * @var Registry|null
 	 */
 	protected $_coreRegistry = null;
-
-	/** @var ResourceNotification */
-	protected $resourceNotification;
 
 	/**
 	 * @var PageFactory
 	 */
 	protected $resultPageFactory;
 
-	/** @var notificationFactory $objectFactory */
-	protected $objectFactory;
+	/**
+	 * @var NotificationInterfaceFactory
+	 */
+	protected $notificationInterfaceFactory;
+
+	/**
+	 * @var NotificationRepositoryInterface
+	 */
+	protected $notificationRepositoryInterface;
+
 
 	/**
 	 * Edit constructor.
 	 * @param Context $context
 	 * @param PageFactory $resultPageFactory
 	 * @param Registry $registry
-	 * @param NotificationFactory $objectFactory
-	 * @param ResourceNotification $resourceNotification
+	 * @param NotificationInterfaceFactory $notificationInterfaceFactory
+	 * @param NotificationRepositoryInterface $notificationRepositoryInterface
 	 */
 	public function __construct(
 		Context $context,
 		PageFactory $resultPageFactory,
 		Registry $registry,
-		NotificationFactory $objectFactory,
-		ResourceNotification $resourceNotification
+		NotificationInterfaceFactory $notificationInterfaceFactory,
+		NotificationRepositoryInterface $notificationRepositoryInterface
 	)
 	{
 		$this->resultPageFactory = $resultPageFactory;
 		$this->_coreRegistry = $registry;
-		$this->objectFactory = $objectFactory;
-		$this->resourceNotification = $resourceNotification;
+		$this->notificationInterfaceFactory = $notificationInterfaceFactory;
+		$this->notificationRepositoryInterface = $notificationRepositoryInterface;
 		parent::__construct($context);
 	}
 
@@ -61,7 +64,7 @@ class Edit extends Action
 	 */
 	protected function _isAllowed()
 	{
-		return $this->_authorization->isAllowed('Uvarov_Bar::notification');
+		return $this->_authorization->isAllowed('Uvarov_bar::notification');
 	}
 
 	/**
@@ -70,12 +73,13 @@ class Edit extends Action
 	public function execute()
 	{
 		$id = $this->getRequest()->getParam('entity_id');
-		$objectInstance = $this->objectFactory->create();
+		$objectInstance = $this->notificationInterfaceFactory->create();
 
 		if ($id) {
-			$objectInstance = $this->objectFactory->create();
-			$this->resourceNotification->load($objectInstance, $id);
-			if (!$objectInstance->getId()) {
+
+			$entity = $this->notificationRepositoryInterface->getById($id);
+
+			if (!$entity->getId()) {
 
 				$this->messageManager->addErrorMessage(__('This record no longer exists.'));
 				/** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
@@ -97,7 +101,7 @@ class Edit extends Action
 		$resultPage = $this->resultPageFactory->create();
 
 		$resultPage->setActiveMenu('Uvarov_Bar::notification');
-		$resultPage->getConfig()->getTitle()->prepend(__('Notification Edit'));
+		$resultPage->getConfig()->getTitle()->prepend(__('Request notification edit'));
 		return $resultPage;
 	}
 }

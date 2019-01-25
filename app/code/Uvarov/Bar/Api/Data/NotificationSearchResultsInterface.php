@@ -1,14 +1,14 @@
 <?php
 
-namespace Sam\Price\Api\Data;
+namespace Uvarov\Bar\Api\Data;
 
 use Magento\Framework\Api\SearchResultsInterface;
 
 /**
- * Interface PriceSearchResultsInterface
+ * Interface NotificationSearchResultsInterface
  * @package Sam\Price\Api\Data
  */
-interface PriceSearchResultsInterface extends SearchResultsInterface
+interface NotificationSearchResultsInterface extends SearchResultsInterface
 {
 	/**
 	 * get data list

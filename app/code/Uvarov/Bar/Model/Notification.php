@@ -2,71 +2,132 @@
 
 namespace Uvarov\Bar\Model;
 
-use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
 use Uvarov\Bar\Model\ResourceModel\Notification as NotificationResource;
+use Uvarov\Bar\Api\Data\NotificationInterface;
 
 /**
  * Class Notification
+ *
  * @package Uvarov\Bar\Model
  */
-class Notification extends AbstractModel implements IdentityInterface
+class Notification extends AbstractModel implements NotificationInterface
 {
-    /**
-     * CMS page cache tag
-     */
-    const CACHE_TAG = 'uvarov_bar_notification';
-
-    /**
-     * @var string
-     */
-    protected $_cacheTag = 'uvarov_bar_notification';
-
-    /**
-     * Prefix of model events names
-     *
-     * @var string
-     */
-    protected $_eventPrefix = 'uvarov_bar_notification';
 
 	const STATUS_ENABLED = 1;
 	const STATUS_DISABLED = 0;
 
-    /**
-     * Initialize resource model
-     *
-     * @return void
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->_init(NotificationResource::class);
-    }
-
-    /**
-     * Get identities
-     *
-     * @return array
-     */
-    public function getIdentities()
-    {
-        return [self::CACHE_TAG . '_' . $this->getId()];
-    }
+	/**
+	 * Initialise resource model
+	 */
+	protected function _construct()
+	{
+		$this->_init(NotificationResource::class);
+	}
 
 	/**
-	 * @param array $data
-	 * @return $this
-	 * @throws \Exception
-	 * @throws \Magento\Framework\Exception\AlreadyExistsException
+	 * Get Title
+	 *
+	 * @return string
 	 */
-    public function saveCollection(array $data)
-    {
-        if (isset($data[$this->getId()])) {
-            $this->addData($data[$this->getId()]);
-            $this->getResource()->save($this);
-        }
-        return $this;
-    }
+	public function getTitle()
+	{
+		return $this->getData(NotificationInterface::TITLE);
+	}
+
+	/**
+	 * Set Title
+	 *
+	 * @param string $title
+	 * @return mixed
+	 */
+	public function setTitle($title)
+	{
+		return $this->setData(NotificationInterface::TITLE, $title);
+	}
+
+	/**
+	 * Get Content
+	 *
+	 * @return string
+	 */
+	public function getContent()
+	{
+		return $this->getData(NotificationInterface::CONTENT);
+	}
+
+	/**
+	 * Set Content
+	 *
+	 * @param string $content
+	 * @return mixed
+	 */
+	public function setContent($content)
+	{
+		return $this->setData(NotificationInterface::CONTENT, $content);
+	}
+
+	/**
+	 * Get Background Color
+	 *
+	 * @return string
+	 */
+	public function getBackgroundColor()
+	{
+		return $this->getData(NotificationInterface::BACKGROUND_COLOR);
+	}
+
+	/**
+	 * Set Background Color
+	 *
+	 * @param string $backgroundColor
+	 * @return mixed
+	 */
+	public function setBackgroundColor($backgroundColor)
+	{
+		return $this->setData(NotificationInterface::BACKGROUND_COLOR, $backgroundColor);
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return bool|int
+	 */
+	public function getStatus()
+	{
+		return $this->getData(NotificationInterface::STATUS);
+	}
+
+	/**
+	 * Set status
+	 *
+	 * @param int $status
+	 * @return $this
+	 */
+	public function setStatus($status)
+	{
+		return $this->setData(NotificationInterface::STATUS, $status);
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPriority()
+	{
+		return $this->getData(NotificationInterface::PRIORITY);
+
+	}
+
+	/**
+	 * Priority
+	 *
+	 * @param integer $priority
+	 * @return mixed
+	 */
+	public function setPriority($priority)
+	{
+		return $this->setData(NotificationInterface::PRIORITY, $priority);
+	}
 
 	/**
 	 * @return array

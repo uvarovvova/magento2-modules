@@ -213,14 +213,16 @@
             </settings>
         </column>
 
-        <column name="store_id" class="Magento\Search\Ui\Component\Listing\Column\StoreView">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
-                    <item name="sortable" xsi:type="boolean">false</item>
-                    <item name="label" xsi:type="string" translate="true">Store View</item>
-                </item>
-            </argument>
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Sam\Price\Ui\Component\Listing\Column\RequestPriceStatus"/>
+                <filter>multiselect</filter>
+                <editor>
+                    <editorType>multiselect</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Store View</label>
+            </settings>
         </column>
 
         <actionsColumn name="actions" class="Uvarov\Bar\Ui\Component\Listing\Column\NotificationActions">

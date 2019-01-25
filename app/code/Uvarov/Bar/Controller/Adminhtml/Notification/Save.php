@@ -4,8 +4,8 @@ namespace Uvarov\Bar\Controller\Adminhtml\Notification;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Uvarov\Bar\Model\NotificationFactory;
-use Uvarov\Bar\Model\ResourceModel\Notification as ResourceNotification;
+use Uvarov\Bar\Api\Data\NotificationInterfaceFactory;
+use Uvarov\Bar\Api\NotificationRepositoryInterface;
 
 /**
  * Class Save
@@ -13,26 +13,25 @@ use Uvarov\Bar\Model\ResourceModel\Notification as ResourceNotification;
  */
 class Save extends Action
 {
-	/** @var NotificationFactory $objectFactory */
-	protected $objectFactory;
-
-	/** @var ResourceNotification */
-	protected $resourceNotification;
+	/**
+	 * @var NotificationInterfaceFactory
+	 */
+	protected $notificationInterfaceFactory;
 
 	/**
-	 * Save constructor.
-	 * @param Context $context
-	 * @param NotificationFactory $objectFactory
-	 * @param ResourceNotification $resourceNotification
+	 * @var NotificationRepositoryInterface
 	 */
+	protected $notificationRepositoryInterface;
+
+
 	public function __construct(
 		Context $context,
-		NotificationFactory $objectFactory,
-		ResourceNotification $resourceNotification
+		NotificationInterfaceFactory $notificationInterfaceFactory,
+		NotificationRepositoryInterface $notificationRepositoryInterface
 	)
 	{
-		$this->objectFactory = $objectFactory;
-		$this->resourceNotification = $resourceNotification;
+		$this->notificationInterfaceFactory = $notificationInterfaceFactory;
+		$this->notificationRepositoryInterface = $notificationRepositoryInterface;
 		parent::__construct($context);
 	}
 
@@ -57,13 +56,13 @@ class Save extends Action
 
 		if ($data) {
 			$params = [];
-			$objectInstance = $this->objectFactory->create();
-			$idField = $objectInstance->getIdFieldName();
+			$objectInstance = $this->notificationInterfaceFactory->create();
+			$idField = $objectInstance::ENTITY_ID;
 
 			if (empty($data[$idField])) {
 				$data[$idField] = null;
 			} else {
-				$this->resourceNotification->load($objectInstance, $data[$idField]);
+				$this->notificationRepositoryInterface->getById($data[$idField]);
 				$params[$idField] = $data[$idField];
 			}
 
@@ -71,11 +70,11 @@ class Save extends Action
 
 			$this->_eventManager->dispatch(
 				'uvarov_bar_notification_prepare_save',
-				['object' => $this->objectFactory, 'request' => $this->getRequest()]
+				['object' => $this->notificationInterfaceFactory, 'request' => $this->getRequest()]
 			);
 
 			try {
-				$this->resourceNotification->save($objectInstance);
+				$this->notificationRepositoryInterface->save($objectInstance);
 				$this->messageManager->addSuccessMessage(__('You saved this record.'));
 				$this->_getSession()->setFormData(false);
 				if ($this->getRequest()->getParam('back')) {
